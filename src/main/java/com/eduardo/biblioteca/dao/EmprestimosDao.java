@@ -1,10 +1,10 @@
 package com.eduardo.biblioteca.dao;
 
 import com.eduardo.biblioteca.db.Conexao;
-import com.eduardo.biblioteca.model.Emprestimos;
+import com.eduardo.biblioteca.domain.emprestimo.Emprestimos;
 
 import java.sql.*;
-
+/*
 public class EmprestimosDao {
 
 
@@ -80,3 +80,4 @@ public class EmprestimosDao {
         }
     }
 
+*/

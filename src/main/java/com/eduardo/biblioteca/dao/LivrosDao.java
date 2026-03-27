@@ -1,6 +1,6 @@
 package com.eduardo.biblioteca.dao;
 
-import com.eduardo.biblioteca.model.Livro;
+import com.eduardo.biblioteca.domain.livro.Livro;
 import com.eduardo.biblioteca.db.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 public class LivrosDao {
 
 
@@ -153,4 +153,4 @@ public class LivrosDao {
             stmt.executeUpdate();
         }
     }
-
+*/
