@@ -3,10 +3,7 @@ package com.eduardo.biblioteca.domain.emprestimo;
 import com.eduardo.biblioteca.domain.livro.Livro;
 import com.eduardo.biblioteca.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import jakarta.persistence.Id;
 
 import java.sql.Date;
@@ -14,6 +11,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "emprestimos")
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,14 +31,18 @@ public class Emprestimos {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    private Boolean ativo;
     private LocalDate dataEmprestimo;
-    private LocalDate dataDevolucao;
 
     public Emprestimos (Livro livro, Usuario usuario) {
         this.livro = livro;
         this.usuario = usuario;
         this.dataEmprestimo = LocalDate.now();
-        this.dataDevolucao = null;
+        this.ativo = true;
+    }
+
+    public Boolean isAtivo() {
+        return ativo;
     }
 }
 

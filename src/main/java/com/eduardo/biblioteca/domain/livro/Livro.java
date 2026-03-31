@@ -9,6 +9,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "Livros")
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,13 +22,21 @@ public class Livro {
         private Long id;
         private String autor;
         private String titulo;
+        private Boolean disponivel;
 
+        public Boolean isDisponivel() {
+            return disponivel;
+        }
 
     public Livro(@Valid DadosCadastroLivro dados) {
         this.titulo = dados.titulo();
         this.autor = dados.autor();
     }
+
+
 }
+
+
 
 
 

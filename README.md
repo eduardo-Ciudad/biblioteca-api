@@ -5,40 +5,47 @@ usuários e controle de empréstimos.
 
 ## Stack
 
-Java 17 · Spring Boot · Spring Data JPA ·
-Flyway · MySQL · Maven · Lombok
+Java 17 · Spring Boot 3 · Spring Data JPA ·
+Flyway · MySQL 8 · Maven · Lombok
 
 ## Estrutura
 
 src/
-├── controller/   # Endpoints REST
+├── controller/     # Endpoints REST
 ├── domain/
-│   ├── livro/    # Entidade, DTO, Repository
-│   ├── usuario/  # Entidade, DTO, Repository
-│   └── emprestimo/ # Entidade, Repository
-└── db/migration/ # Migrations Flyway (V1, V2, V3)
+│   ├── livro/      # Entidade, DTO, Repository
+│   ├── usuario/    # Entidade, DTO, Repository
+│   └── emprestimo/ # Entidade, Service, Repository
+└── db/migration/   # Migrations Flyway (V1–V5)
 
 ## Endpoints
 
 ### Livros
-| Método | Rota     | Descrição        |
-|--------|----------|------------------|
-| POST   | /livros  | Cadastrar livro  |
+| Método | Rota          | Descrição          |
+|--------|---------------|--------------------|
+| POST   | /livros       | Cadastrar livro    |
 
 ### Usuários
-| Método | Rota      | Descrição           |
-|--------|-----------|---------------------|
-| POST   | /usuarios | Cadastrar usuário   |
+| Método | Rota          | Descrição          |
+|--------|---------------|--------------------|
+| POST   | /usuarios     | Cadastrar usuário  |
 
 ### Empréstimos
-| Método | Rota         | Descrição              |
-|--------|--------------|------------------------|
-| POST   | /emprestimos | Registrar empréstimo   |
-| GET    | /emprestimos | Listar empréstimos     |
+| Método | Rota              | Descrição                        |
+|--------|-------------------|----------------------------------|
+| POST   | /emprestimos      | Registrar empréstimo             |
+| GET    | /emprestimos      | Listar empréstimos               |
+
+## Regras de negócio
+
+- Usuário precisa estar cadastrado para realizar empréstimo
+- Livro precisa estar disponível para ser emprestado
+- Usuário não pode ter mais de 5 livros emprestados simultaneamente
+- Ao emprestar, livro é marcado como indisponível automaticamente
 
 ## Como executar
 
-**Pré-requisitos:** Java 17, MySQL, Maven
+**Pré-requisitos:** Java 17, MySQL 8, Maven
 ```bash
 git clone https://github.com/educiudad/biblioteca-api.git
 ```
@@ -49,13 +56,21 @@ spring.datasource.url=jdbc:mysql://localhost:3306/biblioteca
 spring.datasource.username=SEU_USUARIO
 spring.datasource.password=SUA_SENHA
 ```
+
+Crie o schema no MySQL antes de subir:
+```sql
+CREATE DATABASE biblioteca;
+```
 ```bash
 mvn spring-boot:run
 ```
 
+As migrations do Flyway criam as tabelas automaticamente na primeira execução.
+
 ## Próximas etapas
 
-- Bean Validation nos endpoints
+- Endpoint de devolução de livro (`PUT /emprestimos/{id}/devolver`)
 - Tratamento global de erros (`@RestControllerAdvice`)
-- Paginação com `Pageable`
-- Spring Security
+- DTOs nas respostas dos endpoints
+- Bean Validation nos inputs
+- Testes unitários no `EmprestimoService`
