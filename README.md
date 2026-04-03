@@ -1,40 +1,44 @@
 # biblioteca-api
 
-API REST para gerenciamento de biblioteca — cadastro de livros,
-usuários e controle de empréstimos.
+API REST para gerenciamento de biblioteca — cadastro de livros, usuários e controle de empréstimos.
 
 ## Stack
 
-Java 17 · Spring Boot 3 · Spring Data JPA ·
-Flyway · MySQL 8 · Maven · Lombok
+Java 17 · Spring Boot 3 · Spring Data JPA · Flyway · MySQL 8 · Maven · Lombok
 
 ## Estrutura
 
+```
 src/
 ├── controller/     # Endpoints REST
 ├── domain/
 │   ├── livro/      # Entidade, DTO, Repository
 │   ├── usuario/    # Entidade, DTO, Repository
 │   └── emprestimo/ # Entidade, Service, Repository
-└── db/migration/   # Migrations Flyway (V1–V5)
+├── service/        # Regras de negócio
+└── db/migration/   # Migrations Flyway (V1–V6)
+```
 
 ## Endpoints
 
 ### Livros
-| Método | Rota          | Descrição          |
-|--------|---------------|--------------------|
-| POST   | /livros       | Cadastrar livro    |
+| Método | Rota            | Descrição           |
+|--------|-----------------|---------------------|
+| POST   | /livros         | Cadastrar livro     |
+| GET    | /livros         | Listar livros       |
+| DELETE | /livros/{id}    | Remover livro       |
 
 ### Usuários
-| Método | Rota          | Descrição          |
-|--------|---------------|--------------------|
-| POST   | /usuarios     | Cadastrar usuário  |
+| Método | Rota            | Descrição           |
+|--------|-----------------|---------------------|
+| POST   | /usuarios       | Cadastrar usuário   |
+| GET    | /usuarios       | Listar usuários     |
 
 ### Empréstimos
-| Método | Rota              | Descrição                        |
-|--------|-------------------|----------------------------------|
-| POST   | /emprestimos      | Registrar empréstimo             |
-| GET    | /emprestimos      | Listar empréstimos               |
+| Método | Rota            | Descrição                |
+|--------|-----------------|--------------------------|
+| POST   | /emprestimos    | Registrar empréstimo     |
+| GET    | /emprestimos    | Listar empréstimos       |
 
 ## Regras de negócio
 
@@ -46,11 +50,13 @@ src/
 ## Como executar
 
 **Pré-requisitos:** Java 17, MySQL 8, Maven
+
 ```bash
 git clone https://github.com/educiudad/biblioteca-api.git
 ```
 
 Configure `src/main/resources/application.properties`:
+
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/biblioteca
 spring.datasource.username=SEU_USUARIO
@@ -58,9 +64,11 @@ spring.datasource.password=SUA_SENHA
 ```
 
 Crie o schema no MySQL antes de subir:
+
 ```sql
 CREATE DATABASE biblioteca;
 ```
+
 ```bash
 mvn spring-boot:run
 ```

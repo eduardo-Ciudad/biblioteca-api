@@ -1,11 +1,13 @@
 package com.eduardo.biblioteca.controller;
 
 import com.eduardo.biblioteca.domain.emprestimo.EmprestimoRepository;
+import com.eduardo.biblioteca.domain.emprestimo.EmprestimoRequest;
 import com.eduardo.biblioteca.domain.emprestimo.Emprestimos;
 import com.eduardo.biblioteca.domain.livro.DadosCadastroLivro;
 import com.eduardo.biblioteca.domain.livro.Livro;
 import com.eduardo.biblioteca.domain.livro.LivrosRepository;
 import com.eduardo.biblioteca.service.EmprestimoService;
+import com.eduardo.biblioteca.service.LivroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +21,30 @@ import java.util.List;
 public class LivroController {
     @Autowired
     private LivrosRepository repository;
-    private EmprestimoService emprestimoService;
+    private final LivroService livroService;
+
+    public LivroController(LivroService livroService) {
+        this.livroService = livroService;
+    }
+
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid DadosCadastroLivro dados){
-        repository.save(new Livro(dados));
+    public ResponseEntity<Livro> cadastrarLivro(@RequestBody @Valid Livro livro){
+       Livro livroSalvo =  livroService.cadastrarLivro(livro);
+        return ResponseEntity.status(201).body(livroSalvo);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarLivro(@PathVariable Long id){
+        livroService.deletarLivro(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping
+    public ResponseEntity<List<Livro>> listarLivros() {
+        return ResponseEntity.ok(livroService.listarTodos());
+    }
 
 }

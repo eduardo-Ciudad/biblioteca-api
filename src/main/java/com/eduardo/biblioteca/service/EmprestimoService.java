@@ -9,6 +9,7 @@ import com.eduardo.biblioteca.domain.usuario.Usuario;
 import com.eduardo.biblioteca.domain.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class EmprestimoService {
         this.livroRepository = livroRepository;
     }
 
-
+    @Transactional
     public void emprestarLivro(Long usuarioID, Long livroID){
 
 
@@ -53,25 +54,31 @@ public class EmprestimoService {
         emprestimoRepository.save(emprestimo);
     }
 
-    public void devolverLivro(Long emprestimoID){
+    @Transactional
+    public void devolverLivro(Long emprestimoID) {
+
         Emprestimos emprestimo = emprestimoRepository.findById(emprestimoID)
                 .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado"));
 
-        if(!emprestimo.isAtivo()) {
+        if (!emprestimo.isAtivo()) {
             throw new RuntimeException("Esse empréstimo já foi finalizado");
         }
 
         Livro livro = emprestimo.getLivro();
         livro.setDisponivel(true);
-        livroRepository.save(livro);
 
         emprestimo.setAtivo(false);
-        emprestimoRepository.save(emprestimo);
     }
-
 
 
     public List<Emprestimos> listarTodos() {
         return emprestimoRepository.findAll();
+    }
+
+    public void excluirEmprestimo(Long emprestimoID){
+        Emprestimos emprestimos = emprestimoRepository.findById(emprestimoID)
+                .orElseThrow(() -> new RuntimeException("Emprestimo não encontrado"));
+
+        emprestimoRepository.delete(emprestimos);
     }
 }
