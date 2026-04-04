@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "emprestimos")
@@ -33,6 +34,7 @@ public class Emprestimos {
 
     private Boolean ativo;
     private LocalDate dataEmprestimo;
+    private LocalDateTime dataDevolucao;
 
     public Emprestimos (Livro livro, Usuario usuario) {
         this.livro = livro;
@@ -44,6 +46,8 @@ public class Emprestimos {
     public Boolean isAtivo() {
         return ativo;
     }
+
+
 }
 
 

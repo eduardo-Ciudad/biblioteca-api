@@ -19,12 +19,11 @@ public class Usuario {
 
     private String nome;
     private String email;
-    private int quantidadeLivros;
+
 
     public Usuario(DadosCadastroUsuario dados) {
         this.nome = dados.nome();
         this.email = dados.email();
-        this.quantidadeLivros = 0;
     }
 }
 

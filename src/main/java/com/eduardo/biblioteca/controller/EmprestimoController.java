@@ -38,14 +38,12 @@ public class EmprestimoController {
     }
 
     @PutMapping("/{id}/devolucao")
-    public ResponseEntity<Void> devolverLivro(@PathVariable Long id) {
-
+    public ResponseEntity<String> devolverLivro(@PathVariable Long id) {
         emprestimoService.devolverLivro(id);
-
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Empréstimo devolvido com sucesso");
     }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<Emprestimos>> listarEmprestimos() {
         return ResponseEntity.ok(emprestimoService.listarTodos());
     }

@@ -30,8 +30,8 @@ public class LivroController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Livro> cadastrarLivro(@RequestBody @Valid Livro livro){
-       Livro livroSalvo =  livroService.cadastrarLivro(livro);
+    public ResponseEntity<Livro> cadastrarLivro(@RequestBody @Valid DadosCadastroLivro dados){
+       Livro livroSalvo =  livroService.cadastrarLivro(dados);
         return ResponseEntity.status(201).body(livroSalvo);
     }
 
@@ -42,9 +42,14 @@ public class LivroController {
     }
 
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<Livro>> listarLivros() {
         return ResponseEntity.ok(livroService.listarTodos());
+    }
+
+    @GetMapping("/{id}")
+    public Livro buscarPorId(@PathVariable Long id) {
+        return livroService.buscarPorId(id);
     }
 
 }
