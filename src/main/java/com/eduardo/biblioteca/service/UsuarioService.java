@@ -5,6 +5,7 @@ import com.eduardo.biblioteca.domain.livro.Livro;
 import com.eduardo.biblioteca.domain.livro.LivrosRepository;
 import com.eduardo.biblioteca.domain.usuario.Usuario;
 import com.eduardo.biblioteca.domain.usuario.UsuarioRepository;
+import com.eduardo.biblioteca.exception.RecursoNaoEncontradoException;
 import org.springframework.stereotype.*;
 
 import java.util.List;
@@ -40,11 +41,6 @@ public class UsuarioService {
         usuarioRepository.delete(usuario);
     }
 
-    private void validarLivro(Livro livro) {
-        if (livro.getTitulo() == null || livro.getTitulo().isBlank()) {
-            throw new RuntimeException("Título obrigatório");
-        }
-    }
 
     private void validarDuplicidade(Usuario usuario) {
         if (usuarioRepository.existsByNome(usuario.getNome())) {
@@ -54,5 +50,11 @@ public class UsuarioService {
 
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
+    }
+
+    public Usuario buscarPorId(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Usuario não encontrado"));
+        return usuario;
     }
 }

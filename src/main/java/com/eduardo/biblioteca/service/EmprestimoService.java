@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class EmprestimoService {
         }
 
         Emprestimos emprestimo = new Emprestimos(livro, usuario);
+        emprestimo.setDataEmprestimo(LocalDate.now());
         emprestimoRepository.save(emprestimo);
     }
 

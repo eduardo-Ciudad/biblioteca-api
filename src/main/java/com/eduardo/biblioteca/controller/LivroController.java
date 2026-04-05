@@ -8,6 +8,9 @@ import com.eduardo.biblioteca.domain.livro.Livro;
 import com.eduardo.biblioteca.domain.livro.LivrosRepository;
 import com.eduardo.biblioteca.service.EmprestimoService;
 import com.eduardo.biblioteca.service.LivroService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +30,11 @@ public class LivroController {
         this.livroService = livroService;
     }
 
-
+    @Operation(summary = "Criar um novo livro", description = "Cadastra um novo livro no sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Livro criado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos")
+    })
     @PostMapping
     @Transactional
     public ResponseEntity<Livro> cadastrarLivro(@RequestBody @Valid DadosCadastroLivro dados){
@@ -35,6 +42,12 @@ public class LivroController {
         return ResponseEntity.status(201).body(livroSalvo);
     }
 
+
+    @Operation(summary = "Deletar um livro", description = "Remove um livro do sistema pelo ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Livro deletado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Livro não encontrado")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarLivro(@PathVariable Long id){
         livroService.deletarLivro(id);
@@ -42,11 +55,21 @@ public class LivroController {
     }
 
 
+    @Operation(summary = "Listar todos os livros", description = "Retorna uma lista com todos os livros cadastrados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de livros retornada com sucesso")
+    })
     @GetMapping()
     public ResponseEntity<List<Livro>> listarLivros() {
         return ResponseEntity.ok(livroService.listarTodos());
     }
 
+
+    @Operation(summary = "Buscar livro por ID", description = "Retorna um livro específico pelo ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Livro encontrado"),
+            @ApiResponse(responseCode = "404", description = "Livro não encontrado")
+    })
     @GetMapping("/{id}")
     public Livro buscarPorId(@PathVariable Long id) {
         return livroService.buscarPorId(id);

@@ -4,6 +4,9 @@ import com.eduardo.biblioteca.domain.emprestimo.EmprestimoRepository;
 import com.eduardo.biblioteca.domain.emprestimo.EmprestimoRequest;
 import com.eduardo.biblioteca.domain.emprestimo.Emprestimos;
 import com.eduardo.biblioteca.service.EmprestimoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +29,12 @@ public class EmprestimoController {
         this.emprestimoService = emprestimoService;
     }
 
+    @Operation(summary = "fazer um emprestimo", description = "Realiza a criação de um emprestimo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Empréstimo realizado"),
+            @ApiResponse(responseCode = "404", description = "Usuário ou livro não encontrado"),
+            @ApiResponse(responseCode = "409", description = "Livro já está emprestado")
+    })
     @PostMapping
     public ResponseEntity<String> emprestarLivro(@RequestBody EmprestimoRequest request) {
 
@@ -37,6 +46,13 @@ public class EmprestimoController {
         return ResponseEntity.ok("Livro emprestado com sucesso");
     }
 
+
+    @Operation(summary = "Devolver livro", description = "Realiza a devolução de um livro emprestado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Livro devolvido com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Empréstimo não encontrado"),
+            @ApiResponse(responseCode = "409", description = "Livro já foi devolvido")
+    })
     @PutMapping("/{id}/devolucao")
     public ResponseEntity<String> devolverLivro(@PathVariable Long id) {
         emprestimoService.devolverLivro(id);
