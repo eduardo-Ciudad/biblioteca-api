@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -95,5 +96,39 @@ class EmprestimosServiceText {
         assertThrows(RuntimeException.class, () -> {
             emprestimoService.devolverLivro(1L);
         });
+    }
+
+    @Test
+    void deveLançarErroQuandoLivroNaoExiste() {
+        Long usuarioId = 1L;
+        Long livroId = 1L;
+        Usuario usuario = new Usuario();
+        when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuario));
+
+        when(livroRepository.findById(livroId)).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> {
+            emprestimoService.emprestarLivro(usuarioId, livroId);
+        });
+
+    }
+
+    @Test
+    void deveMarcarLivroComoIndisponivelAoCriarEmprestimo() {
+        Long usuarioId = 1L;
+        Long livroId = 1L;
+
+        Usuario usuario = new Usuario();
+        Livro livro = new Livro();
+        livro.setDisponivel(true);
+
+        when(usuarioRepository.findById(usuarioId))
+                .thenReturn(Optional.of(usuario));
+
+        when(livroRepository.findById(livroId))
+                .thenReturn(Optional.of(livro));
+
+        emprestimoService.emprestarLivro(usuarioId, livroId);
+
+        assertFalse(livro.isDisponivel());
     }
 }
