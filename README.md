@@ -19,24 +19,28 @@ src/
 ## Endpoints
 
 ### Livros
-| Método | Rota         | Descrição       |
-|--------|--------------|-----------------|
-| POST   | /livros      | Cadastrar livro |
-| GET    | /livros      | Listar livros   |
-| DELETE | /livros/{id} | Remover livro   |
+| Método | Rota         | Descrição           |
+|--------|--------------|---------------------|
+| POST   | /livros      | Cadastrar livro     |
+| GET    | /livros      | Listar livros       |
+| GET    | /livros/{id} | Buscar livro por ID |
+| DELETE | /livros/{id} | Remover livro       |
 
 ### Usuários
-| Método | Rota      | Descrição          |
-|--------|-----------|--------------------|
-| POST   | /usuarios | Cadastrar usuário  |
-| GET    | /usuarios | Listar usuários    |
+| Método | Rota            | Descrição             |
+|--------|-----------------|-----------------------|
+| POST   | /usuarios       | Cadastrar usuário     |
+| GET    | /usuarios       | Listar usuários       |
+| GET    | /usuarios/{id}  | Buscar usuário por ID |
+| DELETE | /usuarios/{id}  | Remover usuário       |
 
 ### Empréstimos
-| Método | Rota                       | Descrição                |
-|--------|----------------------------|--------------------------|
-| POST   | /emprestimos               | Registrar empréstimo     |
-| GET    | /emprestimos               | Listar empréstimos       |
-| PUT    | /emprestimos/{id}/devolucao | Devolver livro           |
+| Método | Rota                        | Descrição            |
+|--------|-----------------------------|----------------------|
+| POST   | /emprestimos                | Registrar empréstimo |
+| GET    | /emprestimos                | Listar empréstimos   |
+| PUT    | /emprestimos/{id}/devolucao | Devolver livro       |
+| DELETE | /emprestimos/{id}           | Remover empréstimo   |
 
 ## Regras de negócio
 
@@ -51,6 +55,11 @@ src/
 - Campos obrigatórios validados via Bean Validation (`@NotBlank`)
 - Erros de validação retornam 400 com mapa de campos e mensagens
 - Erros de negócio tratados via `@RestControllerAdvice`
+
+## Testes
+
+- Testes unitários em `EmprestimoService` com JUnit 5 e Mockito
+- Cobrindo fluxos de criação, devolução e validações de negócio
 
 ## Como executar
 
@@ -79,4 +88,3 @@ As migrations do Flyway criam as tabelas automaticamente na primeira execução.
 ## Próximas etapas
 
 - DTOs nas respostas dos endpoints
-- Testes unitários no `EmprestimoService`
