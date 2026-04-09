@@ -6,6 +6,8 @@ import com.eduardo.biblioteca.domain.livro.LivrosRepository;
 import com.eduardo.biblioteca.domain.usuario.Usuario;
 import com.eduardo.biblioteca.domain.usuario.UsuarioRepository;
 import com.eduardo.biblioteca.exception.RecursoNaoEncontradoException;
+import com.eduardo.biblioteca.exception.RegrasDeNegocioException;
+import com.eduardo.biblioteca.exception.UsuarioNaoEncontradoException;
 import org.springframework.stereotype.*;
 
 import java.util.List;
@@ -23,11 +25,11 @@ public class UsuarioService {
         if (usuarioRepository.existsByNome(
                 usuario.getNome())) {
 
-            throw new RuntimeException("Livro já cadastrado");
+            throw new RegrasDeNegocioException("Usuario já cadastrado");
         }
 
         if (usuario.getNome() == null || usuario.getNome().isBlank()) {
-            throw new RuntimeException("Nome é obrigatório");
+            throw new RegrasDeNegocioException("Nome é obrigatório");
         }
 
         return usuarioRepository.save(usuario);
@@ -35,7 +37,7 @@ public class UsuarioService {
 
     public void deletarUsuario(Long id) {
         Usuario usuario= usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
+                .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado"));
 
 
         usuarioRepository.delete(usuario);
@@ -44,7 +46,7 @@ public class UsuarioService {
 
     private void validarDuplicidade(Usuario usuario) {
         if (usuarioRepository.existsByNome(usuario.getNome())) {
-            throw new RuntimeException("Usuario já cadastrado");
+            throw new RegrasDeNegocioException("Usuario já cadastrado");
         }
     }
 
@@ -54,7 +56,7 @@ public class UsuarioService {
 
     public Usuario buscarPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Usuario não encontrado"));
+                .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado"));
         return usuario;
     }
 }

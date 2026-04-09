@@ -7,6 +7,7 @@ import com.eduardo.biblioteca.domain.livro.Livro;
 import com.eduardo.biblioteca.domain.livro.LivrosRepository;
 import com.eduardo.biblioteca.domain.usuario.Usuario;
 import com.eduardo.biblioteca.domain.usuario.UsuarioRepository;
+import com.eduardo.biblioteca.exception.EmprestimoNaoEncontradoException;
 import com.eduardo.biblioteca.exception.RecursoNaoEncontradoException;
 import com.eduardo.biblioteca.exception.RegrasDeNegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,7 @@ public class EmprestimoService {
     public void devolverLivro(Long emprestimoID) {
 
         Emprestimos emprestimo = emprestimoRepository.findById(emprestimoID)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Empréstimo não encontrado"));
+                .orElseThrow(() -> new EmprestimoNaoEncontradoException("Empréstimo não encontrado"));
 
         if (!emprestimo.isAtivo()) {
             throw new RegrasDeNegocioException("Esse empréstimo já foi finalizado");
@@ -92,7 +93,7 @@ public class EmprestimoService {
 
     public void excluirEmprestimo(Long emprestimoID){
         Emprestimos emprestimos = emprestimoRepository.findById(emprestimoID)
-                .orElseThrow(() -> new RuntimeException("Emprestimo não encontrado"));
+                .orElseThrow(() -> new EmprestimoNaoEncontradoException("Emprestimo não encontrado"));
 
         emprestimoRepository.delete(emprestimos);
     }

@@ -4,6 +4,7 @@ import com.eduardo.biblioteca.domain.livro.Livro;
 import com.eduardo.biblioteca.domain.emprestimo.EmprestimoRepository;
 import com.eduardo.biblioteca.domain.emprestimo.Emprestimos;
 import com.eduardo.biblioteca.domain.livro.LivrosRepository;
+import com.eduardo.biblioteca.exception.LivroNaoEncontradoException;
 import com.eduardo.biblioteca.exception.RecursoNaoEncontradoException;
 import com.eduardo.biblioteca.exception.RegrasDeNegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class LivroService {
 
     public Livro buscarPorId(Long id){
         Livro livro = livroRepository.findById(id)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Livro não encontrado"));
+                .orElseThrow(() -> new LivroNaoEncontradoException("Livro não encontrado"));
 
         if (!livro.isDisponivel()) {
             throw new RegrasDeNegocioException("Livro está emprestado");
@@ -62,10 +63,10 @@ public class LivroService {
 
     public void deletarLivro(Long id) {
         Livro livro = livroRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
+                .orElseThrow(() -> new LivroNaoEncontradoException("Livro não encontrado"));
 
         if (!livro.isDisponivel()) {
-            throw new RuntimeException("Livro está emprestado");
+            throw new RegrasDeNegocioException("Livro está emprestado");
         }
 
         livroRepository.delete(livro);
@@ -73,13 +74,13 @@ public class LivroService {
 
     private void validarLivro(Livro livro) {
         if (livro.getTitulo() == null || livro.getTitulo().isBlank()) {
-            throw new RuntimeException("Título obrigatório");
+            throw new RegrasDeNegocioException("Título obrigatório");
         }
     }
 
     private void validarDuplicidade(Livro livro) {
         if (livroRepository.existsByTituloAndAutor(livro.getTitulo(), livro.getAutor())) {
-            throw new RuntimeException("Livro já cadastrado");
+            throw new RegrasDeNegocioException("Livro já cadastrado");
         }
     }
 
