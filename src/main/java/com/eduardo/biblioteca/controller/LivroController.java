@@ -3,6 +3,7 @@ package com.eduardo.biblioteca.controller;
 import com.eduardo.biblioteca.dto.input.DadosCadastroLivro;
 import com.eduardo.biblioteca.domain.livro.model.Livro;
 import com.eduardo.biblioteca.domain.livro.repository.LivrosRepository;
+import com.eduardo.biblioteca.dto.output.DadosRespostaLivro;
 import com.eduardo.biblioteca.service.LivroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -31,11 +32,12 @@ public class LivroController {
             @ApiResponse(responseCode = "201", description = "Livro criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
+
     @PostMapping
     @Transactional
-    public ResponseEntity<Livro> cadastrarLivro(@RequestBody @Valid DadosCadastroLivro dados){
+    public ResponseEntity<DadosRespostaLivro> cadastrarLivro(@RequestBody @Valid DadosCadastroLivro dados){
        Livro livroSalvo =  livroService.cadastrarLivro(dados);
-        return ResponseEntity.status(201).body(livroSalvo);
+        return ResponseEntity.status(201).body(new DadosRespostaLivro(livroSalvo));
     }
 
 
@@ -55,9 +57,11 @@ public class LivroController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de livros retornada com sucesso")
     })
+
+
     @GetMapping()
-    public ResponseEntity<List<Livro>> listarLivros() {
-        return ResponseEntity.ok(livroService.listarTodos());
+    public ResponseEntity<List<DadosRespostaLivro>> listarLivros() {
+        return ResponseEntity.ok(livroService.listarTodos().stream().map(DadosRespostaLivro::new).toList());
     }
 
 
@@ -67,8 +71,8 @@ public class LivroController {
             @ApiResponse(responseCode = "404", description = "Livro não encontrado")
     })
     @GetMapping("/{id}")
-    public Livro buscarPorId(@PathVariable Long id) {
-        return livroService.buscarPorId(id);
+    public DadosRespostaLivro buscarPorId(@PathVariable Long id) {
+        return new DadosRespostaLivro(livroService.buscarPorId(id));
     }
 
 }

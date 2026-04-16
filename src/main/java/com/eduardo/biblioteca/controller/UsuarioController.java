@@ -1,6 +1,8 @@
 package com.eduardo.biblioteca.controller;
 
 import com.eduardo.biblioteca.domain.usuario.model.Usuario;
+import com.eduardo.biblioteca.dto.input.DadosCadastroUsuario;
+import com.eduardo.biblioteca.dto.output.DadosRespostaUsuario;
 import com.eduardo.biblioteca.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -31,11 +33,12 @@ public class UsuarioController {
             @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
+
     @PostMapping
     @Transactional
-    public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody @Valid Usuario usuario){
-       Usuario usuarioSalvo =  usuarioService.cadastrarLivro(usuario);
-        return ResponseEntity.status(201).body(usuarioSalvo);
+    public ResponseEntity<DadosRespostaUsuario> cadastrarUsuario(@RequestBody @Valid DadosCadastroUsuario dados){
+       Usuario usuarioSalvo =  usuarioService.cadastrarUsuario(dados);
+        return ResponseEntity.status(201).body(new DadosRespostaUsuario(usuarioSalvo));
     }
 
     @DeleteMapping("/{id}")
@@ -46,8 +49,8 @@ public class UsuarioController {
 
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> listarUsuarios() {
-        return ResponseEntity.ok(usuarioService.listarTodos());
+    public ResponseEntity<List<DadosRespostaUsuario>> listarUsuarios() {
+        return ResponseEntity.ok(usuarioService.listarTodos().stream().map(DadosRespostaUsuario::new).toList());
     }
 
 
@@ -57,8 +60,8 @@ public class UsuarioController {
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
     @GetMapping("/{id}")
-    public Usuario buscarPorId(@PathVariable Long id) {
-        return usuarioService.buscarPorId(id);
+    public DadosRespostaUsuario buscarPorId(@PathVariable Long id) {
+        return new DadosRespostaUsuario(usuarioService.buscarPorId(id));
     }
     }
 

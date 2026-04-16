@@ -3,6 +3,7 @@ package com.eduardo.biblioteca.service;
 
 import com.eduardo.biblioteca.domain.usuario.model.Usuario;
 import com.eduardo.biblioteca.domain.usuario.repository.UsuarioRepository;
+import com.eduardo.biblioteca.dto.input.DadosCadastroUsuario;
 import com.eduardo.biblioteca.exception.RegrasDeNegocioException;
 import com.eduardo.biblioteca.exception.UsuarioNaoEncontradoException;
 import org.springframework.stereotype.*;
@@ -17,17 +18,17 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Usuario cadastrarLivro(Usuario usuario) {
+    public Usuario cadastrarUsuario(DadosCadastroUsuario dados) {
 
-        if (usuarioRepository.existsByNome(
-                usuario.getNome())) {
-
+        if (usuarioRepository.existsByNome(dados.nome())) {
             throw new RegrasDeNegocioException("Usuario já cadastrado");
         }
 
-        if (usuario.getNome() == null || usuario.getNome().isBlank()) {
+        if (dados.nome() == null || dados.nome().isBlank()) {
             throw new RegrasDeNegocioException("Nome é obrigatório");
         }
+
+        Usuario usuario = new Usuario(dados); // ou builder/setters
 
         return usuarioRepository.save(usuario);
     }
