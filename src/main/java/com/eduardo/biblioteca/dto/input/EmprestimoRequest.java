@@ -1,4 +1,4 @@
-package com.eduardo.biblioteca.domain.emprestimo.dto;
+package com.eduardo.biblioteca.dto.input;
 
 import lombok.Getter;
 import lombok.Setter;

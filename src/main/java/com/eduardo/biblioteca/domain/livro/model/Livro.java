@@ -1,6 +1,6 @@
 package com.eduardo.biblioteca.domain.livro.model;
 
-import com.eduardo.biblioteca.domain.livro.dto.DadosCadastroLivro;
+import com.eduardo.biblioteca.dto.input.DadosCadastroLivro;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;

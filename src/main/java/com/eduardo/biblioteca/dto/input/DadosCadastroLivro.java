@@ -1,4 +1,4 @@
-package com.eduardo.biblioteca.domain.livro.dto;
+package com.eduardo.biblioteca.dto.input;
 
 import jakarta.validation.constraints.NotBlank;
 

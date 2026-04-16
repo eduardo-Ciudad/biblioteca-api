@@ -1,6 +1,6 @@
 package com.eduardo.biblioteca.controller;
 
-import com.eduardo.biblioteca.domain.livro.dto.DadosCadastroLivro;
+import com.eduardo.biblioteca.dto.input.DadosCadastroLivro;
 import com.eduardo.biblioteca.domain.livro.model.Livro;
 import com.eduardo.biblioteca.domain.livro.repository.LivrosRepository;
 import com.eduardo.biblioteca.service.LivroService;

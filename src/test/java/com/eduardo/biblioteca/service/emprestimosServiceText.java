@@ -69,6 +69,7 @@ class EmprestimosServiceText {
         });
     }
 
+    @Test
     void deveLancarErroQuandoLivroNaoDisponivel() {
         Long usuarioId = 1L;
         Long livroId = 1L;

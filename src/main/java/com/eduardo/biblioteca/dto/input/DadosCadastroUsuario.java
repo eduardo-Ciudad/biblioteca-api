@@ -1,4 +1,4 @@
-package com.eduardo.biblioteca.domain.usuario.dto;
+package com.eduardo.biblioteca.dto.input;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 

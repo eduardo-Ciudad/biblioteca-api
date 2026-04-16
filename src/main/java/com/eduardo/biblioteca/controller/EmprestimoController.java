@@ -1,7 +1,7 @@
 package com.eduardo.biblioteca.controller;
 
 import com.eduardo.biblioteca.domain.emprestimo.repository.EmprestimoRepository;
-import com.eduardo.biblioteca.domain.emprestimo.dto.EmprestimoRequest;
+import com.eduardo.biblioteca.dto.input.EmprestimoRequest;
 import com.eduardo.biblioteca.domain.emprestimo.model.Emprestimos;
 import com.eduardo.biblioteca.service.EmprestimoService;
 import io.swagger.v3.oas.annotations.Operation;
