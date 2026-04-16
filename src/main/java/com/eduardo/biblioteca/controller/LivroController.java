@@ -1,12 +1,8 @@
 package com.eduardo.biblioteca.controller;
 
-import com.eduardo.biblioteca.domain.emprestimo.EmprestimoRepository;
-import com.eduardo.biblioteca.domain.emprestimo.EmprestimoRequest;
-import com.eduardo.biblioteca.domain.emprestimo.Emprestimos;
-import com.eduardo.biblioteca.domain.livro.DadosCadastroLivro;
-import com.eduardo.biblioteca.domain.livro.Livro;
-import com.eduardo.biblioteca.domain.livro.LivrosRepository;
-import com.eduardo.biblioteca.service.EmprestimoService;
+import com.eduardo.biblioteca.domain.livro.dto.DadosCadastroLivro;
+import com.eduardo.biblioteca.domain.livro.model.Livro;
+import com.eduardo.biblioteca.domain.livro.repository.LivrosRepository;
 import com.eduardo.biblioteca.service.LivroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

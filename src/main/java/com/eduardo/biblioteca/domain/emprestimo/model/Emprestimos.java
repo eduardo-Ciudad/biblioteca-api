@@ -1,12 +1,11 @@
-package com.eduardo.biblioteca.domain.emprestimo;
+package com.eduardo.biblioteca.domain.emprestimo.model;
 
-import com.eduardo.biblioteca.domain.livro.Livro;
-import com.eduardo.biblioteca.domain.usuario.Usuario;
+import com.eduardo.biblioteca.domain.livro.model.Livro;
+import com.eduardo.biblioteca.domain.usuario.model.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 import jakarta.persistence.Id;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

@@ -1,11 +1,6 @@
 package com.eduardo.biblioteca.controller;
 
-import com.eduardo.biblioteca.domain.livro.Livro;
-import com.eduardo.biblioteca.domain.livro.LivrosRepository;
-import com.eduardo.biblioteca.domain.usuario.DadosCadastroUsuario;
-import com.eduardo.biblioteca.domain.usuario.Usuario;
-import com.eduardo.biblioteca.domain.usuario.UsuarioRepository;
-import com.eduardo.biblioteca.service.LivroService;
+import com.eduardo.biblioteca.domain.usuario.model.Usuario;
 import com.eduardo.biblioteca.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

@@ -1,18 +1,17 @@
 package com.eduardo.biblioteca.service;
 
-import com.eduardo.biblioteca.domain.emprestimo.EmprestimoRepository;
-import com.eduardo.biblioteca.domain.emprestimo.Emprestimos;
-import com.eduardo.biblioteca.domain.livro.Livro;
-import com.eduardo.biblioteca.domain.livro.LivrosRepository;
-import com.eduardo.biblioteca.domain.usuario.Usuario;
-import com.eduardo.biblioteca.domain.usuario.UsuarioRepository;
+import com.eduardo.biblioteca.domain.emprestimo.repository.EmprestimoRepository;
+import com.eduardo.biblioteca.domain.emprestimo.model.Emprestimos;
+import com.eduardo.biblioteca.domain.livro.model.Livro;
+import com.eduardo.biblioteca.domain.livro.repository.LivrosRepository;
+import com.eduardo.biblioteca.domain.usuario.model.Usuario;
+import com.eduardo.biblioteca.domain.usuario.repository.UsuarioRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 

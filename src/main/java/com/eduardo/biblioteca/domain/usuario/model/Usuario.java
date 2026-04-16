@@ -1,5 +1,6 @@
-package com.eduardo.biblioteca.domain.usuario;
+package com.eduardo.biblioteca.domain.usuario.model;
 
+import com.eduardo.biblioteca.domain.usuario.dto.DadosCadastroUsuario;
 import jakarta.persistence.*;
 import lombok.*;
 

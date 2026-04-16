@@ -1,13 +1,9 @@
 package com.eduardo.biblioteca.service;
-import com.eduardo.biblioteca.domain.livro.DadosCadastroLivro;
-import com.eduardo.biblioteca.domain.livro.Livro;
-import com.eduardo.biblioteca.domain.emprestimo.EmprestimoRepository;
-import com.eduardo.biblioteca.domain.emprestimo.Emprestimos;
-import com.eduardo.biblioteca.domain.livro.LivrosRepository;
+import com.eduardo.biblioteca.domain.livro.dto.DadosCadastroLivro;
+import com.eduardo.biblioteca.domain.livro.model.Livro;
+import com.eduardo.biblioteca.domain.livro.repository.LivrosRepository;
 import com.eduardo.biblioteca.exception.LivroNaoEncontradoException;
-import com.eduardo.biblioteca.exception.RecursoNaoEncontradoException;
 import com.eduardo.biblioteca.exception.RegrasDeNegocioException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

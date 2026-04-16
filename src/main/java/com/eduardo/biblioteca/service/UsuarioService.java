@@ -1,11 +1,8 @@
 package com.eduardo.biblioteca.service;
 
 
-import com.eduardo.biblioteca.domain.livro.Livro;
-import com.eduardo.biblioteca.domain.livro.LivrosRepository;
-import com.eduardo.biblioteca.domain.usuario.Usuario;
-import com.eduardo.biblioteca.domain.usuario.UsuarioRepository;
-import com.eduardo.biblioteca.exception.RecursoNaoEncontradoException;
+import com.eduardo.biblioteca.domain.usuario.model.Usuario;
+import com.eduardo.biblioteca.domain.usuario.repository.UsuarioRepository;
 import com.eduardo.biblioteca.exception.RegrasDeNegocioException;
 import com.eduardo.biblioteca.exception.UsuarioNaoEncontradoException;
 import org.springframework.stereotype.*;

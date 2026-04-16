@@ -1,6 +1,6 @@
-package com.eduardo.biblioteca.domain.livro;
+package com.eduardo.biblioteca.domain.livro.model;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.eduardo.biblioteca.domain.livro.dto.DadosCadastroLivro;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
