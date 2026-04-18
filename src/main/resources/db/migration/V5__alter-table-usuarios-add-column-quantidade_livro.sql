@@ -1,1 +1,0 @@
-ALTER TABLE usuarios ADD quantidade_livros INT;
