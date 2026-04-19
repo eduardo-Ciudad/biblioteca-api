@@ -4,8 +4,10 @@ package com.eduardo.biblioteca.service;
 import com.eduardo.biblioteca.domain.usuario.model.Usuario;
 import com.eduardo.biblioteca.domain.usuario.repository.UsuarioRepository;
 import com.eduardo.biblioteca.dto.input.DadosCadastroUsuario;
+import com.eduardo.biblioteca.dto.input.LoginRequest;
 import com.eduardo.biblioteca.exception.RegrasDeNegocioException;
 import com.eduardo.biblioteca.exception.UsuarioNaoEncontradoException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.*;
@@ -13,13 +15,10 @@ import org.springframework.stereotype.*;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
-    private final PasswordEncoder encoder;
-    private final JwtService jwtService;
-    public UsuarioService(UsuarioRepository usuarioRepository){
-        this.usuarioRepository = usuarioRepository;
-    }
+
 
     public Usuario cadastrarUsuario(DadosCadastroUsuario dados) {
 
@@ -60,6 +59,7 @@ public class UsuarioService {
                 .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado"));
         return usuario;
     }
+
 
 
 }
