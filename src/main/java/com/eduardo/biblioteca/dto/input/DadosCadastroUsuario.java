@@ -8,6 +8,9 @@ public record DadosCadastroUsuario(
 
         @NotBlank
         @Email
-        String email
+        String email,
+
+        @NotBlank
+        String senha
 ) {
 }
