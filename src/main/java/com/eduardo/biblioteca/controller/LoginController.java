@@ -5,10 +5,8 @@ import com.eduardo.biblioteca.dto.output.LoginResponse;
 import com.eduardo.biblioteca.service.LoginService;
 import com.eduardo.biblioteca.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
@@ -24,4 +22,8 @@ public class LoginController {
             return new LoginResponse(token);
         }
 
+        @GetMapping("/test")
+        public String test() {
+            return "test";
+        }
 }

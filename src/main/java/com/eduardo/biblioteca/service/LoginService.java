@@ -21,6 +21,10 @@ public class LoginService {
         Usuario usuario = usuarioRepository.findByEmail(request.email())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        System.out.println("Senha do banco: " + usuario.getSenha());
+        System.out.println("Senha digitada: " + request.senha());
+        System.out.println("Match: " + encoder.matches(request.senha(), usuario.getSenha()));
+
         if (!encoder.matches(request.senha(), usuario.getSenha())) {
             throw new RuntimeException("Senha inválida");
         }
