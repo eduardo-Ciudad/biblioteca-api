@@ -18,11 +18,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
-
+    private final PasswordEncoder passwordEncoder;
 
     public Usuario cadastrarUsuario(DadosCadastroUsuario dados) {
 
-        if (usuarioRepository.existsByNome(dados.nome())) {
+        if (usuarioRepository.existsByNome(dados.email())) {
             throw new RegrasDeNegocioException("Usuario já cadastrado");
         }
 
@@ -30,7 +30,9 @@ public class UsuarioService {
             throw new RegrasDeNegocioException("Nome é obrigatório");
         }
 
-        Usuario usuario = new Usuario(dados); // ou builder/setters
+        Usuario usuario = new Usuario(dados);
+        usuario.setSenha(passwordEncoder.encode(dados.senha()));
+        // Criptografa a senha antes de salvar no banco, garantindo segurança (não armazena senha em texto puro)
 
         return usuarioRepository.save(usuario);
     }

@@ -46,6 +46,8 @@ public class Usuario implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+        // Converte o papel (role) do usuário em uma "authority" que o Spring Security entende,
+// permitindo que ele controle o acesso aos endpoints (ex: ROLE_ADMIN, R
     }
 
 
