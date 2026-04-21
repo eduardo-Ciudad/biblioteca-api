@@ -5,6 +5,8 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -26,6 +28,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+
+    @Bean
     public FilterRegistrationBean<AuthFilter> authFilterRegistration(AuthFilter authFilter) {
         FilterRegistrationBean<AuthFilter> registration = new FilterRegistrationBean<>(authFilter);
         registration.setEnabled(false); // desativa o registro automático como servlet filter
@@ -43,7 +50,6 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/livros").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/livros/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/usuarios").permitAll() // cadastro aberto
