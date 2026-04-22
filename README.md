@@ -6,7 +6,6 @@ API REST para gerenciamento de biblioteca com autenticação JWT e controle de a
 🖥️ **Frontend:** [frontend-biblioteca-api](https://github.com/educiudad/frontend-biblioteca-api)
  
 ---
-
 ## 🚀 Tecnologias
 
 | Tecnologia | Versão | Uso |
